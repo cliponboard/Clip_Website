@@ -30,7 +30,7 @@
     #china-blurb { width: 50vw !important; max-width: 50vw !important; }
   }
   @media (max-width: 767px) {
-    #hero-gap { height: 8px !important; } #hero-video { height: 60svh !important; margin-top: 16px; cursor: pointer; }
+    #hero-gap { padding: 28px 16px !important; margin-top: 16px; } #hero-video { height: 60svh !important; margin-top: 16px; cursor: pointer; }
     html, body { scrollbar-width: none; -ms-overflow-style: none; }
     html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; }
     html[data-over-hero="true"] #header-bar { background: transparent !important; backdrop-filter: none !important; border-bottom-color: transparent !important; }
@@ -120,8 +120,7 @@
     .award-card > div:first-child { flex-basis: 120px !important; width: 120px !important; }
     .award-text > p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   }
-  @media (max-width: 1150px) { #project-body { grid-template-columns: 1fr !important; } }
-  #read-toggle { display: none; }
+    #read-toggle { display: none; }
   @media (max-width: 767px) {
     #project-body[data-long="true"] #read-toggle { display: block; }
     #project-body { row-gap: 0 !important; }
@@ -195,7 +194,7 @@
       </div>
     </sc-if>
 
-    <div id="hero-gap" aria-hidden="true" style="height: 32px; background: var(--surface);"></div>
+    <div id="hero-gap" style="background: var(--surface); padding: 40px 32px; display: flex; justify-content: flex-start;"><div style="font-family: Poppins; font-size: clamp(26px,3.6vw,44px); line-height: 1.25; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); text-align: left;">Our work</div></div>
 
     <section id="work-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--border); border-bottom: 1px solid var(--ink);">
       <sc-for list="{{ items }}" as="p" hint-placeholder-count="12">
@@ -222,7 +221,7 @@
 
     
     <section style="padding: 56px 32px 64px 32px;">
-      <div id="project-body" data-expanded="{{ textExpanded }}" style="display: grid; grid-template-columns: minmax(0, 36rem) minmax(0,1fr); gap: 56px; align-items: start;">
+      <div id="project-body" data-expanded="{{ textExpanded }}" style="display: grid; grid-template-columns: minmax(0, min(36rem, 40%)) minmax(0,1fr); gap: clamp(24px, 4vw, 56px); align-items: start;">
         <div>
           <div style="font-size: 15px; color: var(--muted); letter-spacing: 0.02em;"><sc-if value="{{ detail.isP26 }}" hint-placeholder-val="{{ false }}"><span>2026</span></sc-if><sc-if value="{{ detail.isP27 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP28 }}" hint-placeholder-val="{{ false }}"><span>2019</span></sc-if><sc-if value="{{ detail.isP29 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP30 }}" hint-placeholder-val="{{ false }}"><span>2017</span></sc-if><sc-if value="{{ detail.isP31 }}" hint-placeholder-val="{{ false }}"><span>2017</span></sc-if><sc-if value="{{ detail.isP1 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP2 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP3 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP4 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP5 }}" hint-placeholder-val="{{ false }}"><span>2024</span></sc-if><sc-if value="{{ detail.isP6 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP7 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP8 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP9 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP10 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP11 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP12 }}" hint-placeholder-val="{{ false }}"><span>2021</span></sc-if><sc-if value="{{ detail.isP13 }}" hint-placeholder-val="{{ false }}"><span>2020</span></sc-if><sc-if value="{{ detail.isP14 }}" hint-placeholder-val="{{ false }}"><span>2019</span></sc-if><sc-if value="{{ detail.isP15 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP16 }}" hint-placeholder-val="{{ false }}"></sc-if><sc-if value="{{ detail.isP17 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP18 }}" hint-placeholder-val="{{ false }}"><span>2019</span></sc-if><sc-if value="{{ detail.isP19 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP20 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP21 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP22 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP23 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP24 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if></div>
           <h1 style="font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.01em; font-weight: 600; margin: 8px 0 0 0;">{{ detail.client }}</h1>
