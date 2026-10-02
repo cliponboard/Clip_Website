@@ -75,6 +75,7 @@
     #news-section a > div > div:last-child > p { font-size: 13px !important; line-height: 1.4 !important; -webkit-line-clamp: 2 !important; line-clamp: 2; }
     [data-about-row] { grid-template-columns: 1fr !important; gap: 24px !important; }
     [data-about-row] p { width: 100% !important; }
+    [data-about-row] + [data-about-row] > p { order: -1; }
     button, a { max-width: 100%; }
     #header-bar { position: fixed !important; left: 0; right: 0; top: 0; width: 100%; transition: background 0.3s ease, border-color 0.3s ease, transform 0.25s ease !important; grid-template-columns: auto auto !important; justify-content: space-between; }
     #header-spacer { display: block !important; }
@@ -93,7 +94,7 @@
     [data-scroll="filmstrip"] > div { flex: 0 0 100% !important; width: 100% !important; aspect-ratio: auto !important; scroll-snap-align: start; }
     #process-section, #trusted-section { height: auto !important; padding-top: 48px !important; padding-bottom: 48px !important; }
     #trusted-section { padding-left: 0 !important; padding-right: 0 !important; padding-bottom: 40px !important; }
-    #trusted-section > div:last-child { animation-duration: 65s !important; }
+    #trusted-section > div:last-child { animation-duration: 40s !important; }
     #trusted-section #trusted-title { margin-bottom: 80px !important; }
     #trusted-section img { margin-right: 40px !important; }
     #site-footer { grid-template-columns: auto 1fr !important; row-gap: 16px !important; }
@@ -1371,7 +1372,7 @@ class Component extends DCLogic {
       menuOpen: s.menuOpen,
       videoOpen: !!s.videoOpen,
       openVideo: () => { if (window.innerWidth <= 767) { this.setState({ videoOpen: true }); document.body.style.overflow = "hidden"; } },
-      closeVideo: (e) => { if (e) e.stopPropagation(); this.setState({ videoOpen: false }); document.body.style.overflow = ""; },
+      closeVideo: (e) => { if (e) e.stopPropagation(); this.setState({ videoOpen: false }); document.body.style.overflow = ""; setTimeout(() => this._vkick && this._vkick(), 0); },
       stopProp: (e) => e.stopPropagation(),
       menuIcon: s.menuOpen ? "✕" : "☰",
       toggleMenu: () => this.setState({ menuOpen: !s.menuOpen, headerHidden: false }),
@@ -1392,7 +1393,7 @@ class Component extends DCLogic {
         prevTitle: prevP ? prevP.title : "", nextTitle: nextP ? nextP.title : "",
         goPrev: (e) => { if (e && e.preventDefault) e.preventDefault(); if (prevP) { this.setState({ open: prevP.id }); window.scrollTo(0, 0); } },
         goNext: (e) => { if (e && e.preventDefault) e.preventDefault(); if (nextP) { this.setState({ open: nextP.id }); window.scrollTo(0, 0); } } } : null,
-      setVideoRef: this._vref || (this._vref = (el) => { if (!el) return; el.muted = true; el.defaultMuted = true; el.loop = true; el.onended = () => { el.currentTime = 0; el.play().catch(() => {}); }; const p = el.play(); if (p && p.catch) p.catch(() => {}); }),
+      setVideoRef: this._vref || (this._vref = (el) => { if (!el) return; el.muted = true; el.defaultMuted = true; el.loop = true; el.setAttribute("playsinline", ""); el.setAttribute("webkit-playsinline", ""); el.setAttribute("muted", ""); el.onended = () => { el.currentTime = 0; el.play().catch(() => {}); }; const go = () => { if (el.paused) { const p = el.play(); if (p && p.catch) p.catch(() => {}); } }; el.onpause = () => setTimeout(go, 50); el.oncanplay = go; el.onloadeddata = go; if (!this._vkick) { this._vkick = () => { const v = this._vel; if (v && v.paused) v.play().catch(() => {}); }; ["touchstart", "click", "scroll"].forEach(t => window.addEventListener(t, this._vkick, { passive: true })); document.addEventListener("visibilitychange", this._vkick); } this._vel = el; go(); }),
       ytCoverOpacity: this.state.ytPlaying ? 0 : 1,
       onYtLoad: (e) => {
         const f = e.currentTarget;
@@ -1433,9 +1434,9 @@ class Component extends DCLogic {
       awards: [
         { date: "April 2026", title: "PAX International award", body: "Clip won the PAX International award Europe for its First Class amenity kit for SWISS in collaboration with Zimmerli.", i: "72975e_f3adfb1fbc654a3a9a7c5f680b9c2757~mv2.jpg" },
         { date: "May 2024", title: "Onboard Hospitality award", body: "Clip won the highly commended awards for its First Class amenity kit for SWISS First in collaboration with Zimmerli.", i: "72975e_0361be7952354e7a924d7d9a65097036~mv2.png" },
-        { date: "September 2021", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality One to Watch Award for its patented CLICK TRAY, a compact box that unfolds into a tray." },
+        { date: "September 2021", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality One to Watch Award for its patented CLICK TRAY, a compact box that unfolds into a tray.", i: "uploads/award_clicktray.webp" },
         { date: "March 2020", title: "Pax International award", body: "Clip won the Pax International Award for its Premium Economy amenity kit made for EVA AIR in partnership with the Belgian brand KIPLING.", i: "72975e_6eb4e726aee44497a917e9f1f7247f1d~mv2.jpg" },
-        { date: "April 2018", title: "Onboard Hospitality finalist", body: "Clip was finalist for the Onboard Hospitality award for its Business Class amenity kit made for HONG KONG AIRLINE in partnership with RICEBOWL REPUBLIC." },
+        { date: "April 2018", title: "Onboard Hospitality finalist", body: "Clip was finalist for the Onboard Hospitality award for its Business Class amenity kit made for HONG KONG AIRLINE in partnership with RICEBOWL REPUBLIC.", i: "uploads/award_hka_amenity.webp" },
         { date: "April 2017", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality Award for its Bento Box made for SWISS. A reusable solution to serve food on medium-haul flights.", i: "72975e_e9f64138ab0041dfa00781a13d5666ee~mv2.jpeg" },
         { date: "April 2025", title: "Onboard Hospitality award", body: "Starlux First Class amenity kit with Aesop was highly commended by OnBoard Hospitality.", i: "72975e_a82396f49e504ac685663d2e29bbe952~mv2.jpg" },
         { date: "May 2024", title: "Onboard Hospitality award", body: "Clip won the highly commended awards for its First Class pyjamas for SWISS First in collaboration with Zimmerli.", i: "72975e_f3adfb1fbc654a3a9a7c5f680b9c2757~mv2.jpg" },
@@ -1446,9 +1447,9 @@ class Component extends DCLogic {
         { date: "April 2025", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality award for the best Onboard Technology with Flydubai presenting its innovation modular noise cancelling headphones.", i: "72975e_8b5454adfebe4dd39ed3f5baf0b38762~mv2.jpg" },
         { date: "June 2023", title: "Onboard Hospitality award", body: "Clip was finalist for the Onboard Hospitality award presenting its new tableware collection designed in partnership with William Edwards & Robert Welch for the STARLUX First Class.", i: "72975e_0c6a6e4d348b4fd1b18b976509f8b221~mv2.png" },
         { date: "September 2021", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality Award for its Premium Economy tableware made for EVA AIR in partnership with the famous Italian brand GUZZINI.", i: "72975e_250fc649a80646cb878220ec14fd2019~mv2.jpg" },
-        { date: "April 2019", title: "Onboard Hospitality finalist", body: "Clip was finalist for the Onboard Hospitality award for its Business Class amenity kit made for SWISS in partnership with the Swiss brand - VICTORINOX." },
+        { date: "April 2019", title: "Onboard Hospitality finalist", body: "Clip was finalist for the Onboard Hospitality award for its Business Class amenity kit made for SWISS in partnership with the Swiss brand - VICTORINOX.", i: "uploads/award_victorinox_sm.webp" },
         { date: "2018", title: "Travel Plus finalist", body: "Clip was finalist for the Travel Plus award for its JETBLUE Mint Class amenity kit in partnership with the luxury brand HAYWARD & HOPPER.", i: "72975e_64a80a560f9147c08aabff5b716e69bb~mv2_d_2737_2737_s_4_2.jpg" },
-        { date: "April 2017", title: "Onboard Hospitality award", body: "Clip won the ONE TO WATCH Onboard Hospitality Award for its Seawool blanket made from oyster shells and recycled PET bottles." }
+        { date: "April 2017", title: "Onboard Hospitality award", body: "Clip won the ONE TO WATCH Onboard Hospitality Award for its Seawool blanket made from oyster shells and recycled PET bottles.", i: "uploads/award_seawool.webp" }
       ].slice().sort((x, y) => new Date(y.date) - new Date(x.date)).map(a => ({ ...a, logo: /pax/i.test(a.title) ? "awards/pax.png" : /travel/i.test(a.title) ? "awards/travelplus.png" : /apex|ifsa/i.test(a.title) ? "awards/apex-ifsa.png" : "awards/onboard.png", hasImg: !!a.i, noImg: !a.i, setRef: (el) => { if (el && a.i && el.src !== img(a.i)) el.src = img(a.i); }, setLogoRef: (el) => { if (!el) return; const lg = /pax/i.test(a.title) ? "awards/pax.png" : /travel/i.test(a.title) ? "awards/travelplus.png" : /apex|ifsa/i.test(a.title) ? "awards/apex-ifsa.png" : "awards/onboard.png"; const r = (document.querySelector('img[data-asset="' + lg + '"]') || {}).src || lg; if (el.src !== r) el.src = r; } })),
       newsCount: NEWS.length,
       newsYears: (() => { const g = {}; NEWS.slice().sort((a, b) => new Date(b.d) - new Date(a.d)).forEach(n => { const yr = (n.d.match(/\d{4}/) || ["—"])[0]; (g[yr] = g[yr] || []).push(n); }); return Object.keys(g).sort((a, b) => b - a).map(yr => ({ year: yr, items: g[yr].map(n => ({
