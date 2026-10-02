@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><style>html,body{margin:0;background:#e9e7e3;font-family:Helvetica,Arial,sans-serif;} a{color:#111;} a:hover{color:#555;}</style></helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:20px;padding:32px 16px;box-sizing:border-box;">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+    <sc-for list="{{ devices }}" as="d" hint-placeholder-count="3">
+      <button onClick="{{ d.select }}" style="{{ d.btnStyle }}">{{ d.label }}</button>
+    </sc-for>
+    <button onClick="{{ reload }}" style="padding:8px 14px;border:1px solid #111;background:transparent;border-radius:999px;font-size:13px;cursor:pointer;">Recharger</button>
+  </div>
+  <div style="background:#111;border-radius:48px;padding:12px;box-shadow:0 30px 60px rgba(0,0,0,.18);">
+    <div style="position:relative;border-radius:36px;overflow:hidden;background:#fff;width:{{ w }};height:{{ h }};">
+      <iframe key="{{ frameKey }}" src="Clip Website.dc.html" title="Aperçu mobile" style="border:0;width:100%;height:100%;display:block;"></iframe>
+    </div>
+  </div>
+  <div style="font-size:12px;color:#555;">{{ sizeLabel }}</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { i: 1, k: 0 };
+  renderVals() {
+    const list = [
+      { label: "iPhone SE", w: 375, h: 667 },
+      { label: "iPhone 14", w: 390, h: 844 },
+      { label: "Pixel 7", w: 412, h: 915 }
+    ];
+    const cur = list[this.state.i];
+    return {
+      devices: list.map((d, i) => ({
+        label: d.label,
+        select: () => this.setState({ i }),
+        btnStyle: { padding: "8px 14px", border: "1px solid #111", borderRadius: 999, fontSize: 13, cursor: "pointer", background: i === this.state.i ? "#111" : "transparent", color: i === this.state.i ? "#fff" : "#111" }
+      })),
+      w: cur.w + "px", h: cur.h + "px",
+      sizeLabel: cur.label + " · " + cur.w + " × " + cur.h,
+      frameKey: "f" + this.state.k,
+      reload: () => this.setState(s => ({ k: s.k + 1 }))
+    };
+  }
+}
+</script>
+</body>
+</html>
