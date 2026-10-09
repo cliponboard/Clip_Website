@@ -29,6 +29,7 @@
   @media (min-width: 768px) {
     #china-blurb { width: 50vw !important; max-width: 50vw !important; }
   }
+  video::-webkit-media-controls, video::-webkit-media-controls-panel, video::-webkit-media-controls-play-button, video::-webkit-media-controls-start-playback-button, video::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; opacity: 0 !important; }
   @media (max-width: 767px) {
     #hero-gap { height: 8px !important; } #hero-video { height: 60svh !important; margin-top: 16px; cursor: pointer; }
     html, body { scrollbar-width: none; -ms-overflow-style: none; }
@@ -196,12 +197,11 @@
     
 
     <section id="hero-video" onClick="{{ openVideo }}" style="position: relative; overflow: hidden; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000;">
-      <video ref="{{ setVideoRef }}" src="uploads/Website_HeadpageVideo-compressed.mp4" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+      <video ref="{{ setVideoRef }}" src="uploads/Website_HeadpageVideo-compressed.mp4" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" disablePictureInPicture="{{ true }}" preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;"></video>
     </section>
     <sc-if value="{{ videoOpen }}" hint-placeholder-val="{{ false }}">
       <div onClick="{{ closeVideo }}" style="position: fixed; inset: 0; z-index: 1000; background: #000; display: flex; align-items: center; justify-content: center;">
-        <video src="uploads/Website_HeadpageVideo-compressed.mp4" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" controls="{{ true }}" onClick="{{ stopProp }}" style="width: 100%; height: 100%; object-fit: contain; display: block;"></video>
-        <button onClick="{{ closeVideo }}" aria-label="Close" style="position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border: none; background: rgba(0,0,0,0.5); color: #fff; font-size: 22px; line-height: 1; border-radius: 22px; cursor: pointer;">✕</button>
+        <video ref="{{ setFullVideoRef }}" src="uploads/Website_HeadpageVideo-compressed.mp4" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" disablePictureInPicture="{{ true }}" preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none;"></video>
       </div>
     </sc-if>
 
@@ -865,7 +865,7 @@
         <div class="award-card" style="border-top: 1px solid var(--border); padding-top: 16px; display: flex; gap: 16px; align-items: stretch;">
             <div style="flex: 0 0 160px; width: 160px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--surface); position: relative;">
               <img ref="{{ awards.0.setLogoRef }}" alt="" loading="lazy" style="pointer-events: none; position: absolute; top: 6px; left: 6px; z-index: 1; width: 64px; height: 64px; object-fit: contain; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
-              <image-slot id="award-0" shape="rect" fit="cover" src="https://static.wixstatic.com/media/72975e_f3adfb1fbc654a3a9a7c5f680b9c2757~mv2.jpg/v1/fill/w_470,h_470,q_90,enc_avif,quality_auto/72975e_f3adfb1fbc654a3a9a7c5f680b9c2757~mv2.jpg" placeholder="Drop the award-winning product"></image-slot>
+              <image-slot id="award-0" shape="rect" fit="cover" src="uploads/web/award-0.webp" placeholder="Drop the award-winning product"></image-slot>
             </div>
             <div class="award-text" style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between;">
               <div style="display: flex; gap: 12px; align-items: flex-start; justify-content: space-between;">
@@ -961,7 +961,7 @@
           <div class="award-card" style="border-top: 1px solid var(--border); padding-top: 16px; display: flex; gap: 16px; align-items: stretch;">
             <div style="flex: 0 0 160px; width: 160px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--surface); position: relative;">
               <img ref="{{ awards.6.setLogoRef }}" alt="" loading="lazy" style="pointer-events: none; position: absolute; top: 6px; left: 6px; z-index: 1; width: 64px; height: 64px; object-fit: contain; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
-              <image-slot id="award-6" shape="rect" fit="cover" placeholder="Drop the award-winning product"></image-slot>
+              <image-slot id="award-6" shape="rect" fit="cover" src="uploads/web/award-6.webp" placeholder="Drop the award-winning product"></image-slot>
             </div>
             <div class="award-text" style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between;">
               <div style="display: flex; gap: 12px; align-items: flex-start; justify-content: space-between;">
@@ -1041,7 +1041,7 @@
           <div class="award-card" style="border-top: 1px solid var(--border); padding-top: 16px; display: flex; gap: 16px; align-items: stretch;">
             <div style="flex: 0 0 160px; width: 160px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--surface); position: relative;">
               <img ref="{{ awards.11.setLogoRef }}" alt="" loading="lazy" style="pointer-events: none; position: absolute; top: 6px; left: 6px; z-index: 1; width: 64px; height: 64px; object-fit: contain; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
-              <image-slot id="award-11" shape="rect" fit="cover" placeholder="Drop the award-winning product"></image-slot>
+              <image-slot id="award-11" shape="rect" fit="cover" src="uploads/web/award-11.webp" placeholder="Drop the award-winning product"></image-slot>
             </div>
             <div class="award-text" style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between;">
               <div style="display: flex; gap: 12px; align-items: flex-start; justify-content: space-between;">
@@ -1057,7 +1057,7 @@
           <div class="award-card" style="border-top: 1px solid var(--border); padding-top: 16px; display: flex; gap: 16px; align-items: stretch;">
             <div style="flex: 0 0 160px; width: 160px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--surface); position: relative;">
               <img ref="{{ awards.12.setLogoRef }}" alt="" loading="lazy" style="pointer-events: none; position: absolute; top: 6px; left: 6px; z-index: 1; width: 64px; height: 64px; object-fit: contain; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
-              <image-slot id="award-12" shape="rect" fit="cover" placeholder="Drop the award-winning product"></image-slot>
+              <image-slot id="award-12" shape="rect" fit="cover" src="uploads/web/award-12.webp" placeholder="Drop the award-winning product"></image-slot>
             </div>
             <div class="award-text" style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between;">
               <div style="display: flex; gap: 12px; align-items: flex-start; justify-content: space-between;">
@@ -1121,7 +1121,7 @@
           <div class="award-card" style="border-top: 1px solid var(--border); padding-top: 16px; display: flex; gap: 16px; align-items: stretch;">
             <div style="flex: 0 0 160px; width: 160px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--surface); position: relative;">
               <img ref="{{ awards.16.setLogoRef }}" alt="" loading="lazy" style="pointer-events: none; position: absolute; top: 6px; left: 6px; z-index: 1; width: 64px; height: 64px; object-fit: contain; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));">
-              <image-slot id="award-16" shape="rect" fit="cover" placeholder="Drop the award-winning product"></image-slot>
+              <image-slot id="award-16" shape="rect" fit="cover" src="uploads/web/award-16.webp" placeholder="Drop the award-winning product"></image-slot>
             </div>
             <div class="award-text" style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between;">
               <div style="display: flex; gap: 12px; align-items: flex-start; justify-content: space-between;">
@@ -1376,6 +1376,7 @@ const CATS = ["All", "Amenity kits", "Tableware", "Textiles", "Headphones"];
 const CABINS = ["All", "First", "Business", "Premium economy", "Economy"];
 
 class Component extends DCLogic {
+  _playHero = () => { const el = this._heroEl; if (el && el.isConnected && el.paused) { el.muted = true; const p = el.play(); if (p && p.catch) p.catch(() => {}); } };
   _heroCheck = () => {
     const v = document.getElementById("hero-video");
     const r = v && v.getBoundingClientRect();
@@ -1548,8 +1549,9 @@ class Component extends DCLogic {
     body.setAttribute("data-long", txt.scrollHeight > lh * 26 ? "true" : "false");
   };
   componentDidUpdate() {
-    this._heroCheck && this._heroCheck(); requestAnimationFrame(this._checkLong); }
+    this._heroCheck && this._heroCheck(); requestAnimationFrame(this._checkLong); setTimeout(this._playHero, 0); }
   componentDidMount() {
+    document.addEventListener("visibilitychange", this._playHero); document.addEventListener("touchstart", this._playHero, { passive: true }); window.addEventListener("pageshow", this._playHero);
     window.addEventListener("scroll", this._heroCheck, { passive: true }); window.addEventListener("resize", this._heroCheck); setTimeout(this._heroCheck, 50);
     this._onResizeLong = () => this._checkLong();
     window.addEventListener("resize", this._onResizeLong);
@@ -1668,7 +1670,8 @@ class Component extends DCLogic {
         prevTitle: prevP ? prevP.title : "", nextTitle: nextP ? nextP.title : "",
         goPrev: (e) => { if (e && e.preventDefault) e.preventDefault(); if (prevP) { this.setState({ open: prevP.id }); window.scrollTo(0, 0); } },
         goNext: (e) => { if (e && e.preventDefault) e.preventDefault(); if (nextP) { this.setState({ open: nextP.id }); window.scrollTo(0, 0); } } } : null,
-      setVideoRef: this._vref || (this._vref = (el) => { if (!el) return; el.muted = true; el.defaultMuted = true; el.loop = true; el.onended = () => { el.currentTime = 0; el.play().catch(() => {}); }; const p = el.play(); if (p && p.catch) p.catch(() => {}); }),
+      setFullVideoRef: this._fref || (this._fref = (el) => { if (!el) return; el.muted = true; el.defaultMuted = true; el.loop = true; el.controls = false; if (this._heroEl) { try { el.currentTime = this._heroEl.currentTime; } catch (e) {} } const p = el.play(); if (p && p.catch) p.catch(() => {}); }),
+      setVideoRef: this._vref || (this._vref = (el) => { this._heroEl = el; if (!el) return; el.controls = false; el.muted = true; el.defaultMuted = true; el.loop = true; el.onended = () => { el.currentTime = 0; el.play().catch(() => {}); }; const p = el.play(); if (p && p.catch) p.catch(() => {}); }),
       ytCoverOpacity: this.state.ytPlaying ? 0 : 1,
       onYtLoad: (e) => {
         const f = e.currentTarget;
