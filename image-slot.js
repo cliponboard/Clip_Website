@@ -568,10 +568,13 @@
       this._subFn = () => this._render();
       // Shadow-DOM listeners live with the shadow DOM — bound once here so
       // disconnect/reconnect (e.g. React remount) doesn't stack handlers.
-      this._empty.addEventListener('click', () => this._input.click());
+      this._empty.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); this._input.click(); });
       root.addEventListener('click', (e) => {
         const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
         if (!act) return;
+        // Slots inside <a> links: keep control clicks from navigating.
+        e.preventDefault();
+        e.stopPropagation();
         // The hidden controls are opacity-0 but still tabbable — without
         // this gate a keyboard user could drive them on a read-only share
         // link (mirrors the dblclick handler's editable gate).
