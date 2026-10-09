@@ -197,7 +197,7 @@
     
 
     <section id="hero-video" style="position: relative; overflow: hidden; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000;">
-      <video ref="{{ setVideoRef }}" src="uploads/Website_HeadpageVideo-compressed.mp4" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" disablePictureInPicture="{{ true }}" preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;"></video>
+      <video ref="{{ setVideoRef }}" src="uploads/Website_HeadpageVideo-compressed.mp4" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" disablePictureInPicture="{{ true }}" disableRemotePlayback="{{ true }}" controls="{{ false }}" preload="auto" webkit-playsinline="true" x-webkit-airplay="deny" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;"></video>
     </section>
     
     <section id="hero-tagline" style="padding: 56px 32px 32px 32px; background: var(--surface); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 48px;">
@@ -1666,7 +1666,7 @@ class Component extends DCLogic {
         goPrev: (e) => { if (e && e.preventDefault) e.preventDefault(); if (prevP) { this.setState({ open: prevP.id }); window.scrollTo(0, 0); } },
         goNext: (e) => { if (e && e.preventDefault) e.preventDefault(); if (nextP) { this.setState({ open: nextP.id }); window.scrollTo(0, 0); } } } : null,
       setFullVideoRef: this._fref || (this._fref = (el) => { if (!el) return; el.muted = true; el.defaultMuted = true; el.loop = true; el.controls = false; if (this._heroEl) { try { el.currentTime = this._heroEl.currentTime; } catch (e) {} } const p = el.play(); if (p && p.catch) p.catch(() => {}); }),
-      setVideoRef: this._vref || (this._vref = (el) => { this._heroEl = el; if (!el) return; el.controls = false; el.muted = true; el.defaultMuted = true; el.loop = true; el.onended = () => { el.currentTime = 0; el.play().catch(() => {}); }; const p = el.play(); if (p && p.catch) p.catch(() => {}); }),
+      setVideoRef: this._vref || (this._vref = (el) => { this._heroEl = el; if (!el) return; el.controls = false; el.playsInline = true; ["muted", "playsinline", "webkit-playsinline", "autoplay", "loop"].forEach(a => el.setAttribute(a, "")); el.removeAttribute("controls"); el.muted = true; el.defaultMuted = true; el.loop = true; el.onended = () => { el.currentTime = 0; el.play().catch(() => {}); }; const p = el.play(); if (p && p.catch) p.catch(() => {}); }),
       ytCoverOpacity: this.state.ytPlaying ? 0 : 1,
       onYtLoad: (e) => {
         const f = e.currentTarget;
