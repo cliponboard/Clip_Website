@@ -134,6 +134,7 @@
   @media (max-width: 767px) {
     #project-body[data-long="true"] #read-toggle { display: block; }
     #project-body { row-gap: 0 !important; width: 100%; max-width: 100%; }
+    image-slot { pointer-events: none !important; touch-action: pan-x pan-y pinch-zoom; }
     #project-body *, #project-body > div > * { min-width: 0; max-width: 100%; box-sizing: border-box; }
     #project-body img, #project-body image-slot, #project-body video, #project-body iframe { max-width: 100% !important; }
     main:has(#project-body) { overflow-x: clip; }
@@ -1486,7 +1487,9 @@ class Component extends DCLogic {
       g.selectAll("circle").attr("r", 6 / ev.transform.k).attr("stroke-width", 2 / ev.transform.k);
       repositionFns.forEach(fn => fn(ev.transform));
     });
+    if (window.innerWidth <= 767) zoom.filter((ev) => !ev.touches && !ev.changedTouches && ev.pointerType !== "touch" && !ev.button);
     svg.call(zoom).on("dblclick.zoom", null).on("wheel.zoom", null);
+    if (window.innerWidth <= 767) { svg.on("touchstart.zoom touchmove.zoom touchend.zoom touchcancel.zoom", null); svg.style("touch-action", "pan-x pan-y pinch-zoom"); }
     svg.on("mousedown.cursor", () => svg.style("cursor", "grabbing")).on("mouseup.cursor mouseleave.cursor", () => svg.style("cursor", "grab"));
     this._svg = svg; this._zoom = zoom;
     const pin = (lon, lat, title, address, expandedW, expandedH) => {
