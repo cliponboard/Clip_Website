@@ -31,7 +31,7 @@
   }
   video::-webkit-media-controls, video::-webkit-media-controls-panel, video::-webkit-media-controls-play-button, video::-webkit-media-controls-start-playback-button, video::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; opacity: 0 !important; }
   @media (max-width: 767px) {
-    #hero-gap { height: 8px !important; } #hero-video { height: 60svh !important; margin-top: 16px; cursor: pointer; }
+    #hero-gap { height: 8px !important; } #hero-video { height: 60svh !important; margin-top: 16px; }
     html, body { scrollbar-width: none; -ms-overflow-style: none; }
     html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; }
     html[data-over-hero="true"] #header-bar { background: transparent !important; backdrop-filter: none !important; border-bottom-color: transparent !important; }
@@ -196,15 +196,10 @@
   <main style="flex: 1;">
     
 
-    <section id="hero-video" onClick="{{ openVideo }}" style="position: relative; overflow: hidden; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000;">
+    <section id="hero-video" style="position: relative; overflow: hidden; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000;">
       <video ref="{{ setVideoRef }}" src="uploads/Website_HeadpageVideo-compressed.mp4" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" disablePictureInPicture="{{ true }}" preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;"></video>
     </section>
-    <sc-if value="{{ videoOpen }}" hint-placeholder-val="{{ false }}">
-      <div onClick="{{ closeVideo }}" style="position: fixed; inset: 0; z-index: 1000; background: #000; display: flex; align-items: center; justify-content: center;">
-        <video ref="{{ setFullVideoRef }}" src="uploads/Website_HeadpageVideo-compressed.mp4" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" disablePictureInPicture="{{ true }}" preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none;"></video>
-      </div>
-    </sc-if>
-
+    
     <section id="hero-tagline" style="padding: 56px 32px 32px 32px; background: var(--surface); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 48px;">
       <h2 style="font-size: clamp(28px,4vw,48px); line-height: 1; letter-spacing: -0.025em; font-weight: 600; margin: 0;">Our work</h2>
       <p id="hero-tagline-text" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; color: var(--ink); margin: 0; max-width: 60ch; text-align: right; text-wrap: pretty;">Clip is a creative and design-driven player in the aviation supply industry.<br>We provide smart solutions onboard, specifically designed for each airline.</p>
