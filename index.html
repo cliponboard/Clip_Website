@@ -192,8 +192,8 @@
     </section>
     
     <section id="hero-tagline" style="padding: 56px 32px 32px 32px; background: var(--surface); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 48px;">
-      <h2 style="font-size: clamp(28px,4vw,48px); line-height: 1; letter-spacing: -0.025em; font-weight: 600; margin: 0;">Our work</h2>
-      <p id="hero-tagline-text" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; color: var(--ink); margin: 0; max-width: 60ch; text-align: right; text-wrap: pretty;">Clip is a design-driven partner for airlines.<br>We craft bespoke products and experiences that passengers remember.</p>
+      <h2 style="font-size: clamp(40px,7vw,72px); line-height: 1; letter-spacing: -0.025em; font-weight: 600; margin: 0;">OUR WORK</h2>
+      <p id="hero-tagline-text" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; color: var(--ink); margin: 0; max-width: 60ch; text-align: right; text-wrap: pretty; padding-bottom: 19px;">Clip is a design-driven partner for airlines.<br>We craft bespoke products and experiences that passengers remember.</p>
     </section>
 
     <section id="work-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--border); border-bottom: 1px solid var(--ink);">
@@ -1238,7 +1238,7 @@ const PROJECTS = [
   { id: 19, client: "Edelweiss", title: "Edelweiss Business class kit", cat: "Amenity kits", cabin: "Business", i: "uploads/EDW-bckits_imagecarroussel.webp", context: "Business kit brief with a reuse requirement.", role: "Metal box design, sock and content sourcing.", result: "Reusable tin drawing on the airline's logo language." },
   { id: 20, sub: "Business Class Skincare", client: "Swiss", title: "SWISS x Soeder* lavatory items", cat: "Amenity kits", cabin: "Business", i: "72975e_ceef50517a0440909348816a8339bc1b~mv2_d_4194_2785_s_4_2.jpg", context: "Cabin and lounge amenities needing a credible local partner.", role: "Partner selection, formulation brief, packaging, supply.", result: "Natural products made in Zurich for onboard and lounges." },
   { id: 21, client: "Hong Kong Airlines", title: "Hong Kong Airlines x JIA tableware", cat: "Tableware", cabin: "Business", i: "72975e_4effc63ad5d04064b69e5a02c1901580~mv2_d_5184_3456_s_4_2.jpg", context: "Business service anchored in a Hong Kong design vocabulary.", role: "Collection design with JIA and production oversight.", result: "Flower-motif chinaware across the business tray." },
-  { id: 22, client: "Swiss", title: "SWISS Bento box", cat: "Tableware", cabin: "Economy", i: "uploads/WEBSITE_SWISSwhite-imagecarroussel.webp", context: "Scaling the reusable box across the economy fleet.", role: "Tooling, cutlery pack integration, logistics planning.", result: "Around 100 cycles per box in service rotation." },
+  { id: 22, client: "Swiss", title: "SWISS Bento box", cat: "Tableware", cabin: "Economy", i: "uploads/WEBSITE_SWISSwhite-imagecarroussel-6859cf7d.webp", context: "Scaling the reusable box across the economy fleet.", role: "Tooling, cutlery pack integration, logistics planning.", result: "Around 100 cycles per box in service rotation." },
   { id: 23, client: "JetBlue", title: "JetBlue x Hayward-Hopper kit", cat: "Amenity kits", cabin: "Business", i: "72975e_64a80a560f9147c08aabff5b716e69bb~mv2_d_2737_2737_s_4_2.jpg", context: "US carrier wanting a local brand story at economy cost.", role: "Partnership, kit design, production.", result: "Collectible reusable pouch series." },
   { id: 24, client: "Hong Kong Airlines", title: "Hong Kong Airlines tableware", cat: "Tableware", cabin: "Economy", i: "72975e_f96d01a67838412f9bf1230f20799fea~mv2_d_4197_2798_s_4_2.jpg", context: "Economy service equipment due for replacement.", role: "Tray, cup, casserole and bowl design; tooling and supply.", result: "Reusable set with rice-grain and flower motifs." },
   { id: 27, client: "Flydubai", title: "Flydubai Business tableware", cat: "Tableware", cabin: "Business", i: "uploads/web/flydubai-tableware-1.webp", context: "Business Class tableware for Flydubai.", role: "Design, sourcing and production.", result: "Details to follow." },
@@ -1644,7 +1644,7 @@ class Component extends DCLogic {
       countLabel: items.length + " / " + PROJECTS.length + " programmes",
       items: items.map((p, n) => ({
         title: p.title, client: p.client, fullTitle: p.title, meta: p.client + " - " + p.cat + (p.cabin ? " - " + p.cabin : ""),
-        num: String(n + 1).padStart(2, "0"), open: () => { this.setState({ page: "project", open: p.id }); window.scrollTo(0, 0); },
+        num: String(n + 1).padStart(2, "0"), open: (e) => { if (document.querySelector("image-slot[data-reframe]")) { if (e && e.preventDefault) e.preventDefault(); return; } this.setState({ page: "project", open: p.id }); window.scrollTo(0, 0); },
         id: p.id, src: img(p.i),
         setRef: (el) => { if (el && el.src !== img(p.i)) el.src = img(p.i); }
       })),
@@ -1714,12 +1714,12 @@ class Component extends DCLogic {
         { date: "April 2017", title: "Onboard Hospitality award", body: "Clip won the ONE TO WATCH Onboard Hospitality Award for its Seawool blanket made from oyster shells and recycled PET bottles." }
       ].slice().sort((x, y) => new Date(y.date) - new Date(x.date)).map(a => ({ ...a, logo: /pax/i.test(a.title) ? "awards/pax.webp" : /travel/i.test(a.title) ? "awards/travelplus.webp" : /apex|ifsa/i.test(a.title) ? "awards/apex-ifsa.webp" : "awards/onboard.webp", hasImg: !!a.i, noImg: !a.i, setRef: (el) => { if (el && a.i && el.src !== img(a.i)) el.src = img(a.i); }, setLogoRef: (el) => { if (!el) return; const lg = /pax/i.test(a.title) ? "awards/pax.webp" : /travel/i.test(a.title) ? "awards/travelplus.webp" : /apex|ifsa/i.test(a.title) ? "awards/apex-ifsa.webp" : "awards/onboard.webp"; const r = (document.querySelector('img[data-asset="' + lg + '"]') || {}).src || lg; if (el.src !== r) el.src = r; } })),
       newsCount: NEWS.length,
-      newsYears: (() => { const g = {}; NEWS.slice().sort((a, b) => new Date(b.d) - new Date(a.d)).forEach(n => { const yr = (n.d.match(/\d{4}/) || ["—"])[0]; (g[yr] = g[yr] || []).push(n); }); return Object.keys(g).sort((a, b) => b - a).map(yr => ({ year: yr, items: g[yr].map(n => ({
+      newsYears: (() => { const g = {}; const _seen = {}; const _ids = new Map(); NEWS.forEach(n => { const b = (n.d + "-" + n.t).toLowerCase().replace(/[^a-z0-9]+/g, "-"); _seen[b] = (_seen[b] || 0) + 1; _ids.set(n, _seen[b] === 1 ? b : b + "-" + _seen[b]); }); NEWS.slice().sort((a, b) => new Date(b.d) - new Date(a.d)).forEach(n => { const yr = (n.d.match(/\d{4}/) || ["—"])[0]; (g[yr] = g[yr] || []).push(n); }); return Object.keys(g).sort((a, b) => b - a).map(yr => ({ year: yr, items: g[yr].map(n => ({
         date: n.d, title: n.h || n.t, body: n.b, source: n.s,
         href: n.u || "#", target: n.u ? "_blank" : "_self",
-        onClick: n.u ? undefined : (e) => e.preventDefault(),
+        onClick: (e) => { if (document.querySelector("image-slot[data-reframe]") || !n.u) e.preventDefault(); },
         linkStyle: "display:block;text-decoration:none;color:inherit;" + (n.u ? "cursor:pointer;" : "cursor:default;"),
-        slotId: (n.d + "-" + n.t).toLowerCase().replace(/[^a-z0-9]+/g, "-"), src: n.m ? img(n.m) : "",
+        slotId: _ids.get(n), src: n.m ? img(n.m) : "",
         setRef: (el) => { if (el && el.src !== img(n.m)) el.src = img(n.m); }
       })) })); })()
     };
